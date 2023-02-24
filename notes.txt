@@ -1,0 +1,92 @@
+Tasks
+
+1) Auth setup 
+
+2) Form Designs
+
+[
+    1) Login
+    2) Homepage
+    3) Add Breakage Page
+    4) View Breakage Page
+    5) Print Report Page
+    6) Edit Apparatus Data. (Add, Edit, Delete)
+]
+
+3) Database Design
+[
+    User Table (admin login)
+        {
+            id
+            username
+            password
+        }
+    Breakage Table
+        {
+            breakage_id
+            date
+            item
+            quantity
+            student_id
+        }
+    Student Table
+        {
+            student_id
+            roll_no
+            class(fy, sy, ty)
+            section(default=Chemistry)
+        }
+    Apparatus Table
+        {
+            apparatus_id
+            name
+            size
+            price
+        }
+    Records Table
+        {
+            record_id
+            message
+            student_id
+            date
+        }
+    Bank Table 
+        {
+            student_id
+            amount
+        }
+]
+
+4) Backend Api
+[
+    1) Login
+    2) Add Breakage
+    3) View Breakage
+    4) Print Report
+]
+
+5) Figure out a way to print data in xls format from the backend (database side)
+
+
+Flow of the app
+Only Degree College Teachers can use this app
+1) Teacher logs in
+Modules shown to the teacher
+    a) Add Breakage
+    b) Edit Apparatus Data
+    c) View Breakage
+    d) Print Report
+
+a) Add Breakage
+    1) Teacher enters the date, item, quantity, student_id
+    2) Teacher clicks on submit
+    3) Data is stored in the database
+
+b) Edit Apparatus Data
+    1) Teacher can add, edit, delete apparatus data
+
+c) View Breakage
+    1) Teacher can view the breakage data
+
+d) Print Report
+    1) Teacher can print the breakage data in xls format
