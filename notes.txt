@@ -10,7 +10,7 @@ Tasks
     3) Add Breakage Page
     4) View Breakage Page
     5) Print Report Page
-    6) Edit Apparatus Data. (Add, Edit, Delete)
+    6) Apparatus Page. (Add, Edit, Delete)
 ]
 
 3) Database Design
@@ -21,14 +21,19 @@ Tasks
             username
             password
         }
+
+    --------------------------------------------------------------
+    // Merge "Breakage Table" and "Student Table" while taking input from the user    
     Breakage Table
         {
             breakage_id
             date
-            item
+            apparatus_id
             quantity
             student_id
+            total_price
         }
+
     Student Table
         {
             student_id
@@ -36,6 +41,8 @@ Tasks
             class(fy, sy, ty)
             section(default=Chemistry)
         }
+    --------------------------------------------------------------
+
     Apparatus Table
         {
             apparatus_id
@@ -46,7 +53,7 @@ Tasks
     Records Table
         {
             record_id
-            message
+            message # (message is generated from "breakage_table" output, contains apparatus and quantity)
             student_id
             date
         }
@@ -59,13 +66,52 @@ Tasks
 
 4) Backend Api
 [
+    1) Add Breakage
+    {
+        /add-breakage [POST],
+        /get-breakage [GET],
+    }
+    2) Print Report
+    {
+        /print-report [GET],
+    }
+    3) Apparatus
+    {
+        /add-apparatus [POST],
+        /get-apparatus [GET],
+        /edit-apparatus [POST],
+        /delete-apparatus [POST],
+    }
+]
+
+5) Figure out a way to print data in xls format from the backend (database side)
+[
+    1) Report Types 
+        {
+            i) Report of each class (fy, sy, ty)
+            {
+                - Sorting based on class
+                - Sortion based on a range of dates
+            },
+
+            ii) Report of who broke what apparatus (records table)
+            {
+                - Sorting based on class
+                - Sorting based on a range of dates
+            }
+        }
+]
+
+6) Functionality
+[
     1) Login
     2) Add Breakage
     3) View Breakage
     4) Print Report
+    5) Add Apparatus
+    6) Edit Apparatus
+    7) Delete Apparatus
 ]
-
-5) Figure out a way to print data in xls format from the backend (database side)
 
 
 Flow of the app
@@ -89,4 +135,4 @@ c) View Breakage
     1) Teacher can view the breakage data
 
 d) Print Report
-    1) Teacher can print the breakage data in xls format
+    1) Teacher can print the breakage data in xls format 

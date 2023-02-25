@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="hero is-link is-fullheight">
+    <div class="hero-body">
+        <h1 class="title">Login</h1>
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+                    <form action="" class="box" method="post">
+                        {% for message in get_flashed_messages() %}
+                        <div class="notification is-danger">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                        <div class="field">
+                            <label for="" class="label">Username</label>
+                            <div class="control has-icons-left">
+                                <input type="text" name="username" placeholder="Username" class="input" required>
+                                <span class="icon is-small is-left">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="" class="label">Password</label>
+                            <div class="control has-icons-left">
+                                <input type="password" name="password" placeholder="*******" class="input" required>
+                                <span class="icon is-small is-left">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="" class="checkbox">
+                                <input type="checkbox">
+                                Remember me
+                            </label>
+                        </div>
+                        <div class="field">
+                            <button class="button is-success" type="submit">
+                                Login
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
