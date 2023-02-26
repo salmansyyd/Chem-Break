@@ -15,6 +15,11 @@ TODO: Structure pages and make dummy endpoints for each page
 
 3) Database Design
 TODO: Test the database design
+Usage Scenarios:
+{
+    i) Creating a new breakage record without a student_id
+    ii) Creating a new breakage record with a student_id (student_id is already present in the database)
+}
 [
     User Table (admin login)
         {
@@ -37,7 +42,7 @@ TODO: Test the database design
 
     Student Table
         {
-            student_id
+            student_id (eg : FY29Y23 : FY = First Year, 29 = Roll No, Y = Year 2023)
             roll_no
             class(fy, sy, ty)
             section(default=Chemistry)
@@ -51,6 +56,7 @@ TODO: Test the database design
             size
             price
         }
+
     Records Table
         {
             record_id
@@ -58,6 +64,7 @@ TODO: Test the database design
             student_id
             date
         }
+
     Bank Table 
         {
             student_id

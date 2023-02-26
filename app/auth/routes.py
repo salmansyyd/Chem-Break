@@ -2,6 +2,7 @@ from . import auth
 from flask import render_template, redirect, url_for, request, flash
 from flask import request
 from app.models import User
+from flask_login import login_user, logout_user, login_required
 
 
 @auth.route("/login")
@@ -17,17 +18,16 @@ def login_post():
 
     user = User.query.filter_by(username=username).first()
 
-    if username != "salman" and password != "salman":
-        flash("Invalid Credentials!")
+    if not user or not user.check_password(password):
+        flash("Please check your login details and try again.")
         return redirect(url_for("auth.login"))
 
-    # if not user or not user.check_password(password):
-    #     flash("Please check your login details and try again.")
-    #     return redirect(url_for("auth.login"))
+    login_user(user, remember=remember)
 
     return redirect(url_for("main.home"))
 
 
 @auth.route("/logout")
 def logout():
-    return render_template("auth/login.html")
+    logout_user()
+    return redirect(url_for("auth.login"))
