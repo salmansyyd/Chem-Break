@@ -3,7 +3,7 @@ Tasks
 1) Auth setup 
 
 2) Form Designs
-
+TODO: Structure pages and make dummy endpoints for each page
 [
     1) Login
     2) Homepage
@@ -14,6 +14,7 @@ Tasks
 ]
 
 3) Database Design
+TODO: Test the database design
 [
     User Table (admin login)
         {
@@ -65,6 +66,7 @@ Tasks
 ]
 
 4) Backend Api
+TODO: Create Dummy endpoints for each page
 [
     1) Add Breakage
     {
@@ -136,3 +138,20 @@ c) View Breakage
 
 d) Print Report
     1) Teacher can print the breakage data in xls format 
+
+
+Route Handling Flow
+[
+    1) login 
+    {
+        - goes to login
+        - success -> goes to homepage
+        - failure -> goes to login
+    }
+    2) homepage 
+    {
+        - list all modules 
+        [ Breakage, Apparatus, Print Report ]
+        - on click of each module -> goes to that module
+    }
+]
