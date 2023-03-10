@@ -62,7 +62,7 @@ Usage Scenarios:
     Records Table (g)
         {
             record_id
-            message # (message is generated from "breakage_table" output, contains apparatus and quantity)
+            message ( message is generated from "breakage_table" output, contains apparatus and quantity )
             student_unique_id
             date
         }

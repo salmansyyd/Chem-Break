@@ -1,6 +1,8 @@
 from flask import Blueprint
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_required
+from app.models import Apparatus
+from app import db
 
 main = Blueprint('main', __name__)
 
@@ -55,4 +57,20 @@ def apparatus():
     """
     Add / Update / Delete apparatus.
     """
-    return render_template('apparatus.html')
+    return render_template('apparatus.html', apparatuses=Apparatus.query.all())
+
+
+@main.route("/home/apparatus", methods=['POST'])
+@login_required
+def new_apparatus():
+    """
+    Add new apparatus.
+    """
+    if request.method == 'POST':
+        name = request.form['name']
+        size = request.form['size']
+        price = request.form['price']
+        apparatus = Apparatus(name=name, size=size, price=price)
+        db.session.add(apparatus)
+        db.session.commit()
+    return redirect(url_for('main.apparatus', apparatuses=Apparatus.query.all()))
