@@ -20,6 +20,7 @@ Usage Scenarios:
     i) Creating a new breakage record without a student_id
     ii) Creating a new breakage record with a student_id (student_id is already present in the database)
 }
+(i) = input, (g) = generated
 [
     User Table (admin login)
         {
@@ -32,42 +33,44 @@ Usage Scenarios:
     // Merge "Breakage Table" and "Student Table" while taking input from the user    
     Breakage Table
         {
-            breakage_id
-            date
-            apparatus_id
-            quantity
-            student_id
-            total_price
+            breakage_id (g)
+            date (g)
+            apparatus_id (i)
+            quantity (i)
+            student_id (g)
+            total_price (g)
         }
 
     Student Table
         {
-            student_id (eg : FY29Y23 : FY = First Year, 29 = Roll No, Y = Year 2023)
-            roll_no
-            class(fy, sy, ty)
-            section(default=Chemistry)
+            student_id (g)
+            unique_id (eg : FY29Y23 : FY = First Year, 29 = Roll No, Y = Year 2023) (g)
+            roll_no (i)
+            class(fy, sy, ty) (i)
+            section(default=Chemistry) (i)
         }
     --------------------------------------------------------------
 
     Apparatus Table
         {
-            apparatus_id
-            name
-            size
-            price
+            apparatus_id (g)
+            name (i)[eg: Bunsen Burner, Beaker, Test Tube , etc.]
+            size (i)[eg: 100ml, 250ml, 500ml, 1L, etc.]
+            price (i) [eg: 100, 200, 300, etc.]
         }
 
-    Records Table
+    Records Table (g)
         {
             record_id
             message # (message is generated from "breakage_table" output, contains apparatus and quantity)
-            student_id
+            student_unique_id
             date
         }
 
-    Bank Table 
+    Bank Table (g)
         {
-            student_id
+            id
+            student_unique_id
             amount
         }
 ]
@@ -158,7 +161,7 @@ Route Handling Flow
     2) homepage 
     {
         - list all modules 
-        [ Breakage, Apparatus, Print Report ]
+        [ Breakage, Apparatus, Print Report, Records ]
         - on click of each module -> goes to that module
     }
 ]

@@ -25,7 +25,7 @@ def breakage():
     """
     Add / View Breakage records
     """
-    return "breakage"
+    return render_template('breakage.html')
 
 
 @main.route('/home/report')
@@ -55,4 +55,4 @@ def apparatus():
     """
     Add / Update / Delete apparatus.
     """
-    return "apparatus"
+    return render_template('apparatus.html')

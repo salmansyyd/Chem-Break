@@ -1,0 +1,85 @@
+{% extends 'nav_base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/breakage.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<!--  -->
+<!-- <div class="main-container">
+    <h1>Add Breakage</h1>
+    <div>
+        <form action="">
+
+        </form>
+    </div>
+</div> -->
+
+<div class="container">
+    <h1 class="title has-text-centered">Add Breakage</h1>
+    <form>
+        <div class="field">
+            <label class="label">Apparatus ID</label>
+            <div class="control">
+                <div class="select">
+                    <select name="apparatus_id" required>
+                        <option disabled selected value="">Select an apparatus ID</option>
+                        <option value="A001">A001</option>
+                        <option value="A002">A002</option>
+                        <option value="A003">A003</option>
+                        <option value="A004">A004</option>
+                        <option value="A005">A005</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Quantity</label>
+            <div class="control">
+                <input class="input" type="number" placeholder="Enter the quantity" name="quantity" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Roll No</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Enter the roll number" name="roll_no" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Class</label>
+            <div class="control">
+                <div class="select">
+                    <select name="class" required>
+                        <option disabled selected value="">Select a class</option>
+                        <option value="fy">FY</option>
+                        <option value="sy">SY</option>
+                        <option value="ty">TY</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Section</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Enter the section (default: Chemistry)" name="section"
+                    value="Chemistry">
+            </div>
+        </div>
+
+        <div class="field is-grouped">
+            <div class="control">
+                <button class="button is-link" type="submit">Submit</button>
+            </div>
+            <div class="control">
+                <button class="button is-text" type="reset">Reset</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

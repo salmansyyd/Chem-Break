@@ -39,8 +39,8 @@ class Breakage(db.Model):
     date = db.Column(db.DateTime, nullable=False)
     item = db.Column(db.String(100), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
-    student_id = db.Column(db.Integer, db.ForeignKey(
-        "student.id"), nullable=False)
+    student_unique_id = db.Column(db.Integer, db.ForeignKey(
+        "student.unique_id"), nullable=False)
 
 
 class Student(db.Model):
@@ -48,6 +48,7 @@ class Student(db.Model):
     Student Model
     parms:
         id: student id
+        unique_id: student unique id
         roll_no: student roll number
         class: student class (fy, sy, ty)
         section: department section (Chemistry)
@@ -56,9 +57,11 @@ class Student(db.Model):
     __tablename__ = "student"
 
     id = db.Column(db.Integer, primary_key=True)
+    unique_id = db.Column(db.String(100), unique=True, nullable=False)
     roll_no = db.Column(db.String(10), unique=True, nullable=False)
     class_ = db.Column(db.String(10), nullable=False)
     section = db.Column(db.String(10), nullable=False, default="Chemistry")
+    total_amount = db.relationship('Bank', backref='student', lazy=True)
 
 
 class Apparatus(db.Model):
@@ -94,20 +97,22 @@ class Record(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, nullable=False)
     message = db.Column(db.String(100), nullable=False)
-    student_id = db.Column(db.Integer, db.ForeignKey(
-        "student.id"), nullable=False)
+    student_unique_id = db.Column(db.String(100), db.ForeignKey(
+        "student.unique_id"), nullable=False)
 
 
 class Bank(db.Model):
     """
     Bank Model
     parms:
-        student_id: student id
+        id: bank id
+        student_unique_id: student id
         amount: amount of money
     """
 
     __tablename__ = "bank"
 
-    student_id = db.Column(db.Integer, db.ForeignKey(
-        "student.id"), primary_key=True)
-    amount = db.Column(db.Integer, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    amount = db.Column(db.Integer, nullable=False, default=0)
+    unique_student_id = db.Column(db.String(100), db.ForeignKey(
+        "student.unique_id"),   nullable=False)

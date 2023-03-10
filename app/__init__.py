@@ -16,8 +16,13 @@ def create_app(config=None):
     login_manager.init_app(app)
 
     with app.app_context():
-        from app.models import User, Breakage, Student, Apparatus, Bank, Record
+        from app.models import User, Breakage, Student, Apparatus, Record, Bank
         db.create_all()
+
+    # with app.app_context():
+    #     user = User(username="admin", password="admin")
+    #     db.session.add(user)
+    #     db.session.commit()
 
     from app.models import User
 
