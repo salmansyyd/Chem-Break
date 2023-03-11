@@ -73,4 +73,39 @@ def new_apparatus():
         apparatus = Apparatus(name=name, size=size, price=price)
         db.session.add(apparatus)
         db.session.commit()
-    return redirect(url_for('main.apparatus', apparatuses=Apparatus.query.all()))
+    return redirect(url_for('main.apparatus'))
+
+
+@main.route("/home/apparatus/<int:id>", methods=['GET', 'POST'])
+@login_required
+def update_apparatus(id):
+    """
+    Update apparatus.
+    """
+
+    if request.method == 'GET':
+        return render_template('update_apparatus.html', apparatus=Apparatus.query.get(id))
+
+    if request.method == 'POST':
+        name = request.form['name']
+        size = request.form['size']
+        price = request.form['price']
+        apparatus = Apparatus.query.get(id)
+        apparatus.name = name
+        apparatus.size = size
+        apparatus.price = price
+        db.session.commit()
+    return redirect(url_for('main.apparatus'))
+
+
+@main.route("/home/apparatus/<int:id>/delete", methods=['POST'])
+@login_required
+def delete_apparatus(id):
+    """
+    Delete apparatus.
+    """
+    if request.method == 'POST':
+        apparatus = Apparatus.query.get(id)
+        db.session.delete(apparatus)
+        db.session.commit()
+    return redirect(url_for('main.apparatus'))

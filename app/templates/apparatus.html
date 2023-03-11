@@ -36,7 +36,7 @@
     </form>
 </div>
 
-<div class="container">
+<div class="container mt-4">
     <div class="columns is-multiline">
         {% for apparatus in apparatuses %}
         <div class="column is-one-third">
@@ -47,9 +47,9 @@
                     <p class="subtitle">{{ apparatus.price }}</p>
                 </div>
                 <footer class="card-footer">
-                    <a href="{{ url_for('main.new_apparatus', id = apparatus.id) }}" class="card-footer-item">Update</a>
-                    <form action="{{ url_for('main.new_apparatus', id=apparatus.id) }}" method="POST">
-                        <button type="submit" class="card-footer-item">Delete</button>
+                    <a href="{{ url_for('main.update_apparatus', id = apparatus.id) }}" class="card-footer-item button is-success m-1">Update</a>
+                    <form action="{{ url_for('main.delete_apparatus', id=apparatus.id) }}" method="POST">
+                        <button type="submit" class="card-footer-item button is-danger m-1">Delete</button>
                     </form>
                 </footer>
             </div>

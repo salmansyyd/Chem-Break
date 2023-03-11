@@ -1,0 +1,41 @@
+{% extends 'nav_base.html' %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container is-max-desktop">
+    <h1 class="title has-text-centered">Add Apparatus</h1>
+    <form method="post">
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Enter apparatus name" name="name" value="{{ apparatus.name }}" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Size</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Enter apparatus size" name="size" value="{{ apparatus.size }}">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Price</label>
+            <div class="control">
+                <input class="input" type="number" placeholder="Enter apparatus price" name="price" min="0" value="{{ apparatus.price }}" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <button class="button is-primary" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
