@@ -43,6 +43,7 @@ class Breakage(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     student_unique_id = db.Column(db.Integer, db.ForeignKey(
         "student.unique_id"), nullable=False)
+    total_ammount = db.Column(db.Integer, nullable=False, default=0)
 
 
 class Student(db.Model):

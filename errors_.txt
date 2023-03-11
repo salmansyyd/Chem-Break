@@ -407,3 +407,5 @@ class UserCreationTest(TestCase):
         self.assertEqual(created_user.username, 'test_user')
         self.assertEqual(created_user.password, 'test_password')
 In this example, we define a User model using Flask SQLAlchemy, and then define a test case for creating a user. We inherit from TestCase provided by Flask Testing and define a create_app method to configure the Flask app and create a test database in memory. In the test_create_user method, we create a new user, add it to the session, commit the changes, and then query for the user to make sure it was saved correctly. We assert that the created user is not None, and that its username and password match the values we used to create it.
+
+

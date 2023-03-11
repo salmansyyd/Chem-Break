@@ -47,6 +47,7 @@ def post_breakage():
         roll_no = request.form['roll_no']
         s_class = request.form['class']
         section = request.form['section']
+        total_ammount = int(quantity) * int(Apparatus.query.get(item).price)
 
         # check if student exists with roll_no and class
         student = Student.query.filter_by(roll_no=roll_no,
@@ -57,16 +58,14 @@ def post_breakage():
             student = create_student(roll_no, s_class, section)
 
         breakage = Breakage(item_id=item,
-                            quantity=quantity, student_unique_id=student.unique_id)
+                            quantity=quantity, student_unique_id=student.unique_id, total_ammount=total_ammount)
 
         record_message = student.unique_id + " " + str(breakage.quantity) + " " + Apparatus.query.get(
             breakage.item_id).name + " " + Apparatus.query.get(breakage.item_id).size
 
         create_record(record_message, student.unique_id)
 
-        breakage_ammount = int(breakage.quantity) * \
-            int(Apparatus.query.get(breakage.item_id).price)
-        create_bank(breakage_ammount, student.id, student.unique_id)
+        create_bank(total_ammount, student.id, student.unique_id)
 
         db.session.add(breakage)
         db.session.commit()

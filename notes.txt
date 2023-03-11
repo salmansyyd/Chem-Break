@@ -75,6 +75,14 @@ Usage Scenarios:
         }
 ]
 
+* Creating a Records View 
+[
+    {
+        student[unique_id, class, roll_no, section],
+        breakage[]
+    }
+]
+
 4) Backend Api
 TODO: Create Dummy endpoints for each page
 [
