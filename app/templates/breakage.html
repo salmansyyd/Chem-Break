@@ -6,30 +6,19 @@
 
 
 {% block content %}
-<!--  -->
-<!-- <div class="main-container">
-    <h1>Add Breakage</h1>
-    <div>
-        <form action="">
-
-        </form>
-    </div>
-</div> -->
 
 <div class="container">
     <h1 class="title has-text-centered">Add Breakage</h1>
-    <form>
+    <form method="post">
         <div class="field">
             <label class="label">Apparatus ID</label>
             <div class="control">
                 <div class="select">
                     <select name="apparatus_id" required>
                         <option disabled selected value="">Select an apparatus ID</option>
-                        <option value="A001">A001</option>
-                        <option value="A002">A002</option>
-                        <option value="A003">A003</option>
-                        <option value="A004">A004</option>
-                        <option value="A005">A005</option>
+                        {% for apparatus, display_name in id_dname %}
+                        <option value="{{ apparatus.id }}">{{ display_name }}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>

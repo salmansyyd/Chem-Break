@@ -1,5 +1,6 @@
 from app import db
 from flask_login import UserMixin
+from datetime import datetime
 
 
 class User(db.Model, UserMixin):
@@ -28,7 +29,7 @@ class Breakage(db.Model):
     parms:
         id: breakage id
         date: date of breakage
-        item: item that broke (apparatus id)
+        item_id: item that broke (apparatus id)
         quantity: quantity of item that broke
         student_id: student id
     """
@@ -36,8 +37,9 @@ class Breakage(db.Model):
     __tablename__ = "breakage"
 
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime, nullable=False)
-    item = db.Column(db.String(100), nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    item_id = db.Column(db.Integer, db.ForeignKey(
+        "apparatus.id"), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     student_unique_id = db.Column(db.Integer, db.ForeignKey(
         "student.unique_id"), nullable=False)
@@ -58,7 +60,7 @@ class Student(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     unique_id = db.Column(db.String(100), unique=True, nullable=False)
-    roll_no = db.Column(db.String(10), unique=True, nullable=False)
+    roll_no = db.Column(db.String(10), nullable=False)
     class_ = db.Column(db.String(10), nullable=False)
     section = db.Column(db.String(10), nullable=False, default="Chemistry")
     total_amount = db.relationship('Bank', backref='student', lazy=True)
@@ -95,7 +97,7 @@ class Record(db.Model):
     __tablename__ = "record"
 
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime, nullable=False)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
     message = db.Column(db.String(100), nullable=False)
     student_unique_id = db.Column(db.String(100), db.ForeignKey(
         "student.unique_id"), nullable=False)
@@ -116,3 +118,6 @@ class Bank(db.Model):
     amount = db.Column(db.Integer, nullable=False, default=0)
     unique_student_id = db.Column(db.String(100), db.ForeignKey(
         "student.unique_id"),   nullable=False)
+
+    def __repr__(self) -> str:
+        return f"Bank('{self.amount}', '{self.unique_student_id})"

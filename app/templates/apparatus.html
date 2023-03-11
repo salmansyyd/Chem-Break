@@ -44,7 +44,7 @@
                 <div class="card-content">
                     <p class="title">{{ apparatus.name }}</p>
                     <p class="subtitle">{{ apparatus.size }}</p>
-                    <p class="subtitle">{{ apparatus.price }}</p>
+                    <p class="subtitle">{{ apparatus.price }} ₹</p>
                 </div>
                 <footer class="card-footer">
                     <a href="{{ url_for('main.update_apparatus', id = apparatus.id) }}" class="card-footer-item button is-success m-1">Update</a>

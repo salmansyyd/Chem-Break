@@ -1,8 +1,9 @@
 from flask import Blueprint
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_required
-from app.models import Apparatus
+from app.models import Apparatus, Breakage, Bank, Student, Record
 from app import db
+import datetime
 
 main = Blueprint('main', __name__)
 
@@ -27,7 +28,93 @@ def breakage():
     """
     Add / View Breakage records
     """
-    return render_template('breakage.html')
+    apparatus_list = Apparatus.query.all()
+    display_name_list = [apparatus.name + " " + apparatus.size
+                         for apparatus in apparatus_list]
+    print(display_name_list)
+    return render_template('breakage.html', id_dname=zip(apparatus_list, display_name_list))
+
+
+@main.route('/home/breakage', methods=['POST'])
+@login_required
+def post_breakage():
+    """
+    Add Breakage records
+    """
+    if request.method == 'POST':
+        item = request.form['apparatus_id']
+        quantity = request.form['quantity']
+        roll_no = request.form['roll_no']
+        s_class = request.form['class']
+        section = request.form['section']
+
+        # check if student exists with roll_no and class
+        student = Student.query.filter_by(roll_no=roll_no,
+                                          class_=s_class).first()
+
+        # if student does not exist, create a new student
+        if student is None:
+            student = create_student(roll_no, s_class, section)
+
+        breakage = Breakage(item_id=item,
+                            quantity=quantity, student_unique_id=student.unique_id)
+
+        record_message = student.unique_id + " " + str(breakage.quantity) + " " + Apparatus.query.get(
+            breakage.item_id).name + " " + Apparatus.query.get(breakage.item_id).size
+
+        create_record(record_message, student.unique_id)
+
+        breakage_ammount = int(breakage.quantity) * \
+            int(Apparatus.query.get(breakage.item_id).price)
+        create_bank(breakage_ammount, student.id, student.unique_id)
+
+        db.session.add(breakage)
+        db.session.commit()
+    return redirect(url_for('main.breakage'))
+
+
+def create_student(rollno, s_class, section):
+    """
+    Create a new student.
+    """
+    year = str(datetime.datetime.now().year)
+    unique_id = str(s_class) + str(rollno) + "Y" + str(year[2:])
+
+    student = Student(unique_id=unique_id, roll_no=rollno,
+                      class_=s_class, section=section)
+
+    db.session.add(student)
+    db.session.commit()
+    return student
+
+
+def create_record(message, student_id):
+    """
+    Create a new record.
+    """
+    record = Record(
+        message=message, student_unique_id=student_id)
+    db.session.add(record)
+    db.session.commit()
+    return record
+
+
+def create_bank(amount, student_id, unique_id):
+    """
+    Create a new bank record.
+    """
+    # check if unique_id exists
+    bank = Bank.query.filter_by(unique_student_id=unique_id).first()
+    if bank is not None:
+        bank.amount = int(bank.amount) + int(amount)
+        db.session.commit()
+        return bank
+
+    bank = Bank(amount=amount,
+                unique_student_id=unique_id)
+    db.session.add(bank)
+    db.session.commit()
+    return bank
 
 
 @main.route('/home/report')
