@@ -41,6 +41,7 @@ Copy code
     </div>
   </form>
 </div>
+
 In the above example, we have used the Bulma CSS framework to style the form. We have used the container class to create a responsive container for the form. The is-max-desktop class ensures that the form fits within the maximum desktop screen size.
 
 Inside the form, we have used the field class to group each input element with its corresponding label. We have used the label class to create a label for each input element. The control class is used to wrap the input element.
