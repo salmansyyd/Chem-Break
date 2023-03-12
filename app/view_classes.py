@@ -12,3 +12,9 @@ class ViewRecord:
 
     def __repr__(self) -> str:
         return f"ViewRecord('{self.date}', '{self.roll_no}', '{self.class_}', '{self.section}', '{self.apparatus}', '{self.quantity}', '{self.price}', '{self.total_ammount}')"
+
+
+class CollectMoney:
+    def __init__(self, rollno, total_cash):
+        self.rollno = rollno
+        self.total_cash = total_cash

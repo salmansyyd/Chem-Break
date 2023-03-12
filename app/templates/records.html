@@ -1,12 +1,6 @@
 {% extends 'nav_base.html' %}
 {% block head %}
 <style>
-    .card:hover{
-        background-color: #000000;
-    }
-    .card:hover .title{
-        color: #ffffff;
-    }
     @media screen and (max-width: 768px) {
         .column.is-4 {
             width: 100%;
@@ -16,36 +10,55 @@
 </style>
 {% endblock %}
 {% block content %}
-    <div class="container mt-5">
+    <div class="container mt-6">
         <div class="columns is-multiline">
-            <div class="column is-4">
+            <div class="column is-one-third">
                 <div class="card">
-                    <a href="{{ url_for('main.class_records', class_name='fy')}}">
+                    <header class="card-header">
+                        <p class="card-header-title">First Year</p>
+                    </header>
                     <div class="card-content">
-                        <p class="title">FY</p>
-                        <p class="subtitle">First Year</p>
+                        <div class="content">
+                            View Record Report, Collect Money Report
+                        </div>
                     </div>
-                    </a>
+                    <footer class="card-footer">
+                        <a href="{{ url_for('main.test_class_records', class_name='fy')}}" class="card-footer-item">Records</a>
+                        <a href="{{ url_for('main.getMoney', class_name='fy')}}" class="card-footer-item">Money</a>
+                    </footer>
                 </div>
             </div>
-            <div class="column is-4">
+            <div class="column is-one-third">
                 <div class="card">
-                    <a href="{{ url_for('main.class_records', class_name='sy') }}">
+                    <header class="card-header">
+                        <p class="card-header-title">Second Year</p>
+                    </header>
                     <div class="card-content">
-                        <p class="title">SY</p>
-                        <p class="subtitle">Second Year</p>
+                        <div class="content">
+                            View Record Report, Collect Money Report.
+                        </div>
                     </div>
-                    </a>
+                    <footer class="card-footer">
+                        <a href="{{ url_for('main.test_class_records', class_name='sy')}}" class="card-footer-item">Records</a>
+                        <a href="{{ url_for('main.getMoney', class_name='sy')}}" class="card-footer-item">Money</a>
+                    </footer>
                 </div>
             </div>
-            <div class="column is-4">
+
+            <div class="column is-one-third">
                 <div class="card">
-                    <a href="{{ url_for('main.class_records', class_name='ty') }}">
+                    <header class="card-header">
+                        <p class="card-header-title">Third Year</p>
+                    </header>
                     <div class="card-content">
-                        <p class="title">TY</p>
-                        <p class="subtitle">Third Year</p>
+                        <div class="content">
+                            View Record Report, Collect Money Report
+                        </div>
                     </div>
-                    </a>
+                    <footer class="card-footer">
+                        <a href="{{ url_for('main.test_class_records', class_name='ty')}}" class="card-footer-item">Records</a>
+                        <a href="{{ url_for('main.getMoney', class_name='ty')}}" class="card-footer-item">Money</a>
+                    </footer>
                 </div>
             </div>
         </div>

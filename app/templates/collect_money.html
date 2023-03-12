@@ -1,39 +1,32 @@
 {% extends 'nav_base.html' %}
+
 {% block head %}
 {% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="columns is-vcentered is-center">
         <div class="column">
             <h1 class="title is-2 has-text-centered has-text-weight-bold">Royal College Chemistry Dept</h1>
             <h2 class="subtitle is-3 has-text-centered">Breakage Charges</h2>
+            <h2 class="subtitle is-3 has-text-centered">Total Amount</h2>
             <h3 class="subtitle is-4 has-text-centered">{{ class_name }}</h3>
         </div>
     </div>
 </div>
-<div class="container mt-6">
-    <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+<div class="container">
+    <table class="table is-fullwidth is-bordered is-striped mt-5">
         <thead>
             <tr>
-                <th>Date</th>
                 <th>Roll No</th>
-                <th>Class</th>
-                <th>Apparatus</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
+                <th>Total Cash</th>
             </tr>
         </thead>
         <tbody>
-            {% for record in records %}
+            {% for item in collect_money_list %}
             <tr>
-                <td>{{ record.date }}</td>
-                <td>{{ record.roll_no }}</td>
-                <td>{{ record.class_ }}</td>
-                <td>{{ record.apparatus }}</td>
-                <td>{{ record.quantity }}</td>
-                <td>{{ record.price }} ₹</td>
-                <td>{{ record.total_ammount }} ₹</td>
+                <td>{{ item.rollno }}</td>
+                <td>{{ item.total_cash }} ₹</td>
             </tr>
             {% endfor %}
         </tbody>

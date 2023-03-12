@@ -2,9 +2,10 @@ from flask import Blueprint
 from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_required
 from app.models import Apparatus, Breakage, Bank, Student, Record
-from app.view_classes import ViewRecord
+from app.view_classes import ViewRecord, CollectMoney
 from app import db
 import datetime
+from sqlalchemy import and_
 
 main = Blueprint('main', __name__)
 
@@ -27,12 +28,11 @@ def home():
 @login_required
 def breakage():
     """
-    Add / View Breakage records
+    Add records
     """
     apparatus_list = Apparatus.query.all()
     display_name_list = [apparatus.name + " " + apparatus.size
                          for apparatus in apparatus_list]
-    print(display_name_list)
     return render_template('breakage.html', id_dname=zip(apparatus_list, display_name_list))
 
 
@@ -126,7 +126,7 @@ def report():
         class (fy, sy, ty)
         date (by default generate a months data.)
     """
-    return "report"
+    return render_template('print_report.html')
 
 
 @main.route("/home/records")
@@ -228,12 +228,18 @@ def class_records(class_name):
     class_students = Student.query.filter_by(class_=class_name.lower()).all()
     class_records = []
     for student in class_students:
+        utc_date_str = str(Breakage.query.filter_by(
+            student_unique_id=student.unique_id).first().date)
+        utc_datetime = datetime.datetime.strptime(
+            utc_date_str, "%Y-%m-%d %H:%M:%S.%f")
+        date_str = utc_datetime.strftime("%d-%m-%Y")
+
+        # only getting a single student record
         item_id = Breakage.query.filter_by(
             student_unique_id=student.unique_id).first().item_id
 
         new_record = ViewRecord(
-            date=Breakage.query.filter_by(
-                student_unique_id=student.unique_id).first().date,
+            date=date_str,
             roll_no=student.roll_no,
             class_=student.class_,
             section=student.section,
@@ -247,4 +253,61 @@ def class_records(class_name):
 
         class_records.append(new_record)
 
-    return render_template('class_records.html', records=class_records, class_name=class_name.upper())
+    sorted_records = sorted(class_records, key=lambda x: x.roll_no)
+    return render_template('class_records.html', records=sorted_records, class_name=class_name.upper())
+
+
+@main.route("/test/home/records/<string:class_name>")
+@login_required
+def test_class_records(class_name):
+    valid_classes = ['fy', 'sy', 'ty']
+    if class_name.lower() not in valid_classes:
+        abort(404)
+
+    class_students = Student.query.filter_by(class_=class_name.lower()).all()
+    view_records = []
+
+    for student in class_students:
+        breakages = Breakage.query.join(Apparatus).filter(
+            and_(Breakage.student_unique_id == student.unique_id)).all()
+
+        # loop through breakages and create view records
+        for breakage in breakages:
+            view_record = ViewRecord(
+                date=breakage.date.strftime('%d/%m/%Y'),
+                roll_no=student.roll_no,
+                class_=student.class_,
+                section=student.section,
+                apparatus=breakage.apparatus.name + " " + breakage.apparatus.size,
+                quantity=breakage.quantity,
+                price=breakage.apparatus.price,
+                total_ammount=breakage.quantity * breakage.apparatus.price
+            )
+
+            view_records.append(view_record)
+
+    sorted_records = sorted(view_records, key=lambda x: x.roll_no)
+    return render_template('class_records.html', records=sorted_records, class_name=class_name.upper())
+
+
+@main.route("/home/records/getMoney/<string:class_name>")
+@login_required
+def getMoney(class_name):
+    valid_classes = ['fy', 'sy', 'ty']
+    if class_name.lower() not in valid_classes:
+        abort(404)
+
+    class_students = Student.query.filter_by(class_=class_name.lower()).all()
+    class_records = []
+
+    for student in class_students:
+        bank = Bank.query.filter_by(
+            unique_student_id=student.unique_id).first().amount
+        collect_money = CollectMoney(
+            rollno=student.roll_no,
+            total_cash=bank,
+        )
+        class_records.append(collect_money)
+
+    sorted_records = sorted(class_records, key=lambda x: x.rollno)
+    return render_template('collect_money.html', collect_money_list=sorted_records, class_name=class_name.upper())

@@ -462,3 +462,135 @@ class ViewRecord:
         self.total_ammount = total_ammount 
 
 Create a html template for flask for the above class and display the data in a table format and style it using bulma css framework.
+
+
+class ViewRecord:
+
+    def __init__(self, date, roll_no, class_, section, apparatus, quantity, price, total_ammount):
+        self.date = date
+        self.roll_no = roll_no
+        self.class_ = class_
+        self.section = section
+        self.apparatus = apparatus
+        self.quantity = quantity
+        self.price = price
+        self.total_ammount = total_ammount
+
+    def __repr__(self) -> str:
+        return f"ViewRecord('{self.date}', '{self.roll_no}', '{self.class_}', '{self.section}', '{self.apparatus}', '{self.quantity}', '{self.price}', '{self.total_ammount}')"
+
+Sort a list of the above object based on rollno before passing it to a html template for flask and display the data in a table format.
+
+ """
+    Student Model
+    parms:
+        id: student id
+        unique_id: student unique id
+        roll_no: student roll number
+        class: student class (fy, sy, ty)
+        section: department section (Chemistry)
+  """
+  """
+    Breakage Model
+    parms:
+        id: breakage id
+        date: date of breakage
+        item_id: item that broke (apparatus id)
+        quantity: quantity of item that broke
+        student_unique_id: student unique id 
+  """
+  """
+    Apparatus Model
+    parms:
+        id: apparatus id
+        name: apparatus name
+        size: apparatus size
+        price: apparatus price
+    """
+class ViewRecord:
+
+    def __init__(self, date, roll_no, class_, section, apparatus, quantity, price, total_ammount):
+        self.date = date
+        self.roll_no = roll_no
+        self.class_ = class_
+        self.section = section
+        self.apparatus = apparatus
+        self.quantity = quantity
+        self.price = price
+        self.total_ammount = total_ammount
+
+Based on above models written in flask_sqlalchemy write a queries to first filter all students based on their class "fy","sy" and "ty" then get all the items broken by each individual student and fill it in list with ViewRecord objects 
+
+
+tell me the steps to generate a pdf from an html flask template with displaying it to the user and creating and storing a pdf in the server
+Sure, here are the steps to generate a PDF from an HTML Flask template, display it to the user, and save a copy of the PDF on the server:
+
+Install the required dependencies: You'll need to install a PDF generation library such as WeasyPrint or ReportLab, as well as the Flask-WTF extension to work with forms.
+
+Create an HTML template: Create an HTML template that includes the content you want to convert to PDF, using Flask's built-in Jinja templating engine to add dynamic data if necessary.
+
+Create a Flask route to render the HTML template: Create a Flask route that renders the HTML template when a user visits a specific URL.
+
+Create a form to trigger PDF generation: Add a form to the template that will allow the user to trigger PDF generation by submitting the form.
+
+Generate the PDF: Use a PDF generation library to generate the PDF from the HTML template when the user submits the form. You can either generate the PDF in memory and send it to the user, or save it to disk on the server.
+
+Display the PDF to the user: If you generated the PDF in memory, you can use Flask's send_file function to send the PDF to the user's browser for display. If you saved the PDF to disk, you can create another Flask route that serves the PDF file to the user.
+
+Save a copy of the PDF on the server: If you want to save a copy of the PDF on the server, you can use Python's built-in file I/O functions to write the PDF to disk.
+
+Here's some example code to get you started:
+
+python
+Copy code
+from flask import Flask, render_template, request, send_file
+from flask_wtf import FlaskForm
+from wtforms import SubmitField
+from weasyprint import HTML
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret'
+
+class GeneratePdfForm(FlaskForm):
+    generate_pdf = SubmitField('Generate PDF')
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    form = GeneratePdfForm()
+    if form.validate_on_submit():
+        # Generate the PDF
+        html = render_template('template.html')
+        pdf_bytes = HTML(string=html).write_pdf()
+
+        # Display the PDF to the user
+        return send_file(
+            pdf_bytes,
+            attachment_filename='output.pdf',
+            as_attachment=True
+        )
+
+    return render_template('index.html', form=form)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+In this example, we're using Flask-WTF to create a form with a single "Generate PDF" button. When the form is submitted, we render the HTML template using Flask's built-in render_template function, generate the PDF using WeasyPrint, and send the PDF to the user's browser using Flask's send_file function.
+
+If you want to save a copy of the PDF on the server, you can add code to the route to write the PDF bytes to a file:
+
+python
+Copy code
+# Generate the PDF
+html = render_template('template.html')
+pdf_bytes = HTML(string=html).write_pdf()
+
+# Save the PDF to disk
+with open('output.pdf', 'wb') as f:
+    f.write(pdf_bytes)
+
+# Display the PDF to the user
+return send_file(
+    pdf_bytes,
+    attachment_filename='output.pdf',
+    as_attachment=True
+)
+This code opens a file named "output.pdf" in binary mode and writes the PDF bytes to the file. You can customize the filename and path as necessary.

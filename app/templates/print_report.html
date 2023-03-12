@@ -1,0 +1,70 @@
+{% extends 'nav_base.html' %}
+{% block head %}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="is-title">Print Reports</h1>
+</div>
+<div class="container mt-6">
+    <div class="columns is-multiline">
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">First Year</p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        Print Reports
+                        1) View Record Report
+                        2) Collect Money Report
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a href="{{ url_for('main.test_class_records', class_name='fy')}}"
+                        class="card-footer-item">Records</a>
+                    <a href="{{ url_for('main.getMoney', class_name='fy')}}" class="card-footer-item">Money</a>
+                </footer>
+            </div>
+        </div>
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">Second Year</p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        Print Reports
+                        1) View Record Report
+                        2) Collect Money Report
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a href="{{ url_for('main.test_class_records', class_name='sy')}}"
+                        class="card-footer-item">Records</a>
+                    <a href="{{ url_for('main.getMoney', class_name='sy')}}" class="card-footer-item">Money</a>
+                </footer>
+            </div>
+        </div>
+
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">Third Year</p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        Print Reports
+                        1) View Record Report
+                        2) Collect Money Report
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a href="{{ url_for('main.test_class_records', class_name='ty')}}"
+                        class="card-footer-item">Records</a>
+                    <a href="{{ url_for('main.getMoney', class_name='ty')}}" class="card-footer-item">Money</a>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

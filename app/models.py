@@ -44,6 +44,10 @@ class Breakage(db.Model):
     student_unique_id = db.Column(db.Integer, db.ForeignKey(
         "student.unique_id"), nullable=False)
     total_ammount = db.Column(db.Integer, nullable=False, default=0)
+    student = db.relationship(
+        'Student', backref='breakage', lazy=True)
+    apparatus = db.relationship(
+        'Apparatus', backref='breakage', lazy=True)
 
     def __repr__(self) -> str:
         return f"Breakage('{self.date}', '{self.item_id}', '{self.quantity}', '{self.student_unique_id}', '{self.total_ammount}')"
@@ -53,6 +57,12 @@ class Breakage(db.Model):
         self.quantity = quantity
         self.student_unique_id = student_unique_id
         self.total_ammount = total_ammount
+
+    def get_dd_mm_yyyy(self):
+        utc_datetime = datetime.datetime.strptime(
+            self.date, "%Y-%m-%d %H:%M:%S.%f")
+        date_str = utc_datetime.strftime("%d-%m-%Y")
+        return date_str
 
 
 class Student(db.Model):
