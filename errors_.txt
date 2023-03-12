@@ -409,3 +409,56 @@ class UserCreationTest(TestCase):
 In this example, we define a User model using Flask SQLAlchemy, and then define a test case for creating a user. We inherit from TestCase provided by Flask Testing and define a create_app method to configure the Flask app and create a test database in memory. In the test_create_user method, we create a new user, add it to the session, commit the changes, and then query for the user to make sure it was saved correctly. We assert that the created user is not None, and that its username and password match the values we used to create it.
 
 
+
+
+{% if records %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Records</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Apparatus</th>
+                        <th scope="col">Breakage</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td>{{ record.date }}</td>
+                        <td>{{ record.time }}</td>
+                        <td>{{ record.apparatus }}</td>
+                        <td>{{ record.breakage }}</td>
+                        <td>
+                            <a href="{{ url_for('main.records', record_id=record.id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ url_for('main.records', record_id=record.id) }}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+  
+class ViewRecord:
+
+    def __init__(self, date, roll_no, class_, section, apparatus, quantity, price, total_ammount):
+        self.date = date
+        self.roll_no = roll_no
+        self.class_ = class_
+        self.section = section
+        self.apparatus = apparatus
+        self.quantity = quantity
+        self.price = price
+        self.total_ammount = total_ammount 
+
+Create a html template for flask for the above class and display the data in a table format and style it using bulma css framework.

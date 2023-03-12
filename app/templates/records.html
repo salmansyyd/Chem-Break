@@ -1,0 +1,53 @@
+{% extends 'nav_base.html' %}
+{% block head %}
+<style>
+    .card:hover{
+        background-color: #000000;
+    }
+    .card:hover .title{
+        color: #ffffff;
+    }
+    @media screen and (max-width: 768px) {
+        .column.is-4 {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }   
+</style>
+{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="columns is-multiline">
+            <div class="column is-4">
+                <div class="card">
+                    <a href="{{ url_for('main.class_records', class_name='fy')}}">
+                    <div class="card-content">
+                        <p class="title">FY</p>
+                        <p class="subtitle">First Year</p>
+                    </div>
+                    </a>
+                </div>
+            </div>
+            <div class="column is-4">
+                <div class="card">
+                    <a href="{{ url_for('main.class_records', class_name='sy') }}">
+                    <div class="card-content">
+                        <p class="title">SY</p>
+                        <p class="subtitle">Second Year</p>
+                    </div>
+                    </a>
+                </div>
+            </div>
+            <div class="column is-4">
+                <div class="card">
+                    <a href="{{ url_for('main.class_records', class_name='ty') }}">
+                    <div class="card-content">
+                        <p class="title">TY</p>
+                        <p class="subtitle">Third Year</p>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

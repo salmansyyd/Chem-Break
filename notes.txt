@@ -37,7 +37,7 @@ Usage Scenarios:
             date (g)
             apparatus_id (i)
             quantity (i)
-            student_id (g)
+            student_unique_id (g)
             total_price (g)
         }
 

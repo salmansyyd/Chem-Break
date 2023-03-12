@@ -31,7 +31,7 @@ class Breakage(db.Model):
         date: date of breakage
         item_id: item that broke (apparatus id)
         quantity: quantity of item that broke
-        student_id: student id
+        student_unique_id: student unique id
     """
 
     __tablename__ = "breakage"
@@ -44,6 +44,15 @@ class Breakage(db.Model):
     student_unique_id = db.Column(db.Integer, db.ForeignKey(
         "student.unique_id"), nullable=False)
     total_ammount = db.Column(db.Integer, nullable=False, default=0)
+
+    def __repr__(self) -> str:
+        return f"Breakage('{self.date}', '{self.item_id}', '{self.quantity}', '{self.student_unique_id}', '{self.total_ammount}')"
+
+    def __init__(self, item_id, quantity, student_unique_id, total_ammount):
+        self.item_id = item_id
+        self.quantity = quantity
+        self.student_unique_id = student_unique_id
+        self.total_ammount = total_ammount
 
 
 class Student(db.Model):
@@ -66,6 +75,15 @@ class Student(db.Model):
     section = db.Column(db.String(10), nullable=False, default="Chemistry")
     total_amount = db.relationship('Bank', backref='student', lazy=True)
 
+    def __repr__(self) -> str:
+        return f"Student('{self.unique_id}', '{self.roll_no}', '{self.class_}', '{self.section}')"
+
+    def __init__(self, unique_id, roll_no, class_, section):
+        self.unique_id = unique_id
+        self.roll_no = roll_no
+        self.class_ = class_
+        self.section = section
+
 
 class Apparatus(db.Model):
     """
@@ -84,6 +102,14 @@ class Apparatus(db.Model):
     size = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Integer, nullable=False)
 
+    def __repr__(self) -> str:
+        return f"Apparatus('{self.name}', '{self.size}', '{self.price}')"
+
+    def __init__(self, name, size, price):
+        self.name = name
+        self.size = size
+        self.price = price
+
 
 class Record(db.Model):
     """
@@ -92,7 +118,7 @@ class Record(db.Model):
         id: record id
         date: date of record
         message: message of record
-        student_id: student id
+        student_unique_id: student unique id
     """
 
     __tablename__ = "record"
@@ -103,14 +129,21 @@ class Record(db.Model):
     student_unique_id = db.Column(db.String(100), db.ForeignKey(
         "student.unique_id"), nullable=False)
 
+    def __repr__(self) -> str:
+        return f"Record('{self.date}', '{self.message}', '{self.student_unique_id}')"
+
+    def __init__(self, message, student_unique_id):
+        self.message = message
+        self.student_unique_id = student_unique_id
+
 
 class Bank(db.Model):
     """
     Bank Model
     parms:
         id: bank id
-        student_unique_id: student id
         amount: amount of money
+        student_unique_id: student id
     """
 
     __tablename__ = "bank"
@@ -122,3 +155,7 @@ class Bank(db.Model):
 
     def __repr__(self) -> str:
         return f"Bank('{self.amount}', '{self.unique_student_id})"
+
+    def __init__(self, amount, unique_student_id):
+        self.amount = amount
+        self.unique_student_id = unique_student_id

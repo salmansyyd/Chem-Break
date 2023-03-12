@@ -1,7 +1,8 @@
 from flask import Blueprint
-from flask import render_template, redirect, url_for, request, flash
+from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_required
 from app.models import Apparatus, Breakage, Bank, Student, Record
+from app.view_classes import ViewRecord
 from app import db
 import datetime
 
@@ -128,6 +129,19 @@ def report():
     return "report"
 
 
+@main.route("/home/records")
+@login_required
+def records():
+    """
+    List all records.
+    Three subsections :
+            1. Fy
+            2. Sy
+            3. Ty
+    """
+    return render_template('records.html')
+
+
 @main.route('/home/help')
 @login_required
 def help():
@@ -195,3 +209,42 @@ def delete_apparatus(id):
         db.session.delete(apparatus)
         db.session.commit()
     return redirect(url_for('main.apparatus'))
+
+
+@main.route("/home/records/<string:class_name>")
+@login_required
+def class_records(class_name):
+    """
+    List all records from a specific class.
+    Three subsections :
+        1. Fy
+        2. Sy
+        3. Ty
+    """
+    valid_classes = ['fy', 'sy', 'ty']
+    if class_name.lower() not in valid_classes:
+        abort(404)
+
+    class_students = Student.query.filter_by(class_=class_name.lower()).all()
+    class_records = []
+    for student in class_students:
+        item_id = Breakage.query.filter_by(
+            student_unique_id=student.unique_id).first().item_id
+
+        new_record = ViewRecord(
+            date=Breakage.query.filter_by(
+                student_unique_id=student.unique_id).first().date,
+            roll_no=student.roll_no,
+            class_=student.class_,
+            section=student.section,
+            apparatus=Apparatus.query.get(item_id).name,
+            quantity=Breakage.query.filter_by(
+                student_unique_id=student.unique_id).first().quantity,
+            price=Apparatus.query.get(item_id).price,
+            total_ammount=Breakage.query.filter_by(
+                student_unique_id=student.unique_id).first().total_ammount,
+        )
+
+        class_records.append(new_record)
+
+    return render_template('class_records.html', records=class_records, class_name=class_name.upper())
