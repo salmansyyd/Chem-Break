@@ -1,0 +1,61 @@
+{% extends 'nav_base.html' %}
+{% block head %}
+    <title>Reset and Backup</title>
+{% endblock %}
+{% block content %}
+<div class="container mt-3">
+    <h3 class="title has-text-danger">Do not delete anything without printing a report !!!</h3>
+    <h3 class="subtitle has-text-success">Download a backup before deleting.</h3>
+    {% for message in get_flashed_messages() %}
+    <div class="notification is-danger">
+        {{ message }}
+    </div>
+    {% endfor %}
+    <div class="columns is-vcentered is-multiline mt-5 p-3">
+
+        <!-- Empty Breakage Table Form -->
+        <form action="{{ url_for('main.empty_breakage_table') }}" method="POST" class="column is-half">
+            <h2 class="subtitle">Empty Breakage Table</h2>
+            <button class="button is-danger">Empty Breakage Table</button>
+        </form>
+
+        <!-- Empty Student Table Form -->
+        <form action="{{ url_for('main.empty_student_table') }}" method="POST" class="column is-half">
+            <h2 class="subtitle">Empty Student Table</h2>
+            <button class="button is-danger">Empty Student Table</button>
+        </form>
+
+        <!-- Empty Apparatus Table Form -->
+        <form action="{{ url_for('main.empty_apparatus_table') }}" method="POST" class="column is-half">
+            <h2 class="subtitle">Empty Apparatus Table</h2>
+            <button class="button is-danger">Empty Apparatus Table</button>
+        </form>
+
+        <!-- Empty Records Table Form -->
+        <form action="{{ url_for('main.empty_records_table') }}" method="POST" class="column is-half">
+            <h2 class="subtitle">Empty Records Table</h2>
+            <button class="button is-danger">Empty Records Table</button>
+        </form>
+
+        <!-- Empty Bank Table Form -->
+        <form action="{{ url_for('main.empty_bank_table') }}" method="POST" class="column is-half">
+            <h2 class="subtitle">Empty Bank Table</h2>
+            <button class="button is-danger">Empty Bank Table</button>
+        </form>
+
+        <!-- Empty Bank Table Form -->
+        <form action="{{ url_for('main.complete_reset') }}" method="POST" class="column is-half"
+        >
+            <h2 class="subtitle has-text-danger">Complete Reset</h2>
+            <button class="button is-danger">Empty Student/Breakage Data</button>
+        </form>
+
+        <!-- Download Backup Form -->
+        <form action="{{ url_for('main.download_backup') }}" method="POST" class="column is-half">
+            <h2 class="subtitle">Download Backup</h2>
+            <button class="button is-primary">Download Backup</button>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

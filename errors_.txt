@@ -647,3 +647,5 @@ User Table (admin login)
             student_unique_id
             amount
         }
+
+Create a html form with bulma css & wirte flask functions for emptying each of the above tables with flask_sqlalchemy and an option to get the backup of a "app.db" file which is the sqlite db file of the database

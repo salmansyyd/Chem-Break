@@ -1,7 +1,7 @@
-from flask import Blueprint
+from flask import Blueprint, send_file, send_from_directory
 from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_required
-from app.models import Apparatus, Breakage, Bank, Student, Record
+from app.models import Apparatus, Breakage, Bank, Student, Record, User
 from app.view_classes import ViewRecord, CollectMoney
 from app import db
 import datetime
@@ -311,3 +311,81 @@ def getMoney(class_name):
 
     sorted_records = sorted(class_records, key=lambda x: x.rollno)
     return render_template('collect_money.html', collect_money_list=sorted_records, class_name=class_name.upper())
+
+
+@main.route("/home/reset_and_bakup")
+@login_required
+def reset_and_bakup():
+    return render_template('reset_and_backup.html')
+
+
+@main.route('/download_backup', methods=['POST'])
+@login_required
+def download_backup():
+    return send_file('../app.db', as_attachment=True)
+
+
+@main.route('/empty_user_table', methods=['POST'])
+@login_required
+def empty_user_table():
+    db.session.query(User).delete()
+    db.session.commit()
+
+    return "User table has been emptied"
+
+
+@main.route('/empty_breakage_table', methods=['POST'])
+@login_required
+def empty_breakage_table():
+    db.session.query(Breakage).delete()
+    db.session.commit()
+    flash("Breakage table has been emptied", "success")
+    return render_template('reset_and_backup.html')
+
+
+@main.route('/empty_student_table', methods=['POST'])
+@login_required
+def empty_student_table():
+    db.session.query(Student).delete()
+    db.session.commit()
+    flash("Student table has been emptied", "success")
+    return render_template('reset_and_backup.html')
+
+
+@main.route('/empty_apparatus_table', methods=['POST'])
+@login_required
+def empty_apparatus_table():
+    db.session.query(Apparatus).delete()
+    db.session.commit()
+    flash("Apparatus table has been emptied", "success")
+    return render_template('reset_and_backup.html')
+
+
+@main.route('/empty_records_table', methods=['POST'])
+@login_required
+def empty_records_table():
+    db.session.query(Record).delete()
+    db.session.commit()
+    flash("Records table has been emptied", "success")
+    return render_template('reset_and_backup.html')
+
+
+@main.route('/empty_bank_table', methods=['POST'])
+@login_required
+def empty_bank_table():
+    db.session.query(Bank).delete()
+    db.session.commit()
+    flash("Bank table has been emptied", "success")
+    return render_template('reset_and_backup.html')
+
+
+@main.route('/complete_reset', methods=['POST'])
+@login_required
+def complete_reset():
+    db.session.query(Breakage).delete()
+    db.session.query(Student).delete()
+    db.session.query(Record).delete()
+    db.session.query(Bank).delete()
+    db.session.commit()
+    flash("All tables have been emptied", "success")
+    return render_template('reset_and_backup.html')
