@@ -1,6 +1,8 @@
 {% extends 'nav_base.html' %}
 
 {% block head %}
+<style>
+</style>
 {% endblock %}
 
 {% block content %}
@@ -40,7 +42,7 @@
     <div class="columns is-multiline">
         {% for apparatus in apparatuses %}
         <div class="column is-one-third">
-            <div class="card">
+            <div class="card apparatus">
                 <div class="card-content">
                     <p class="title">{{ apparatus.name }}</p>
                     <p class="subtitle">{{ apparatus.size }}</p>

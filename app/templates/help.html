@@ -1,83 +1,66 @@
 {% extends 'nav_base.html' %}
 
 {% block content %}
-<section class="section">
+<div class="section">
     <div class="container">
-        <h1 class="title">Help Section</h1>
+        <h1 class="title">Help</h1>
 
-        <h2 class="subtitle">Backend API</h2>
-        <p>TODO: Create Dummy endpoints for each page</p>
-        <ul>
-            <li>
-                <strong>Add Breakage</strong>
-                <ul>
-                    <li>/add-breakage [POST]</li>
-                    <li>/get-breakage [GET]</li>
-                </ul>
-            </li>
-            <li>
-                <strong>Print Report</strong>
-                <ul>
-                    <li>/print-report [GET]</li>
-                </ul>
-            </li>
-            <li>
-                <strong>Apparatus</strong>
-                <ul>
-                    <li>/add-apparatus [POST]</li>
-                    <li>/get-apparatus [GET]</li>
-                    <li>/edit-apparatus [POST]</li>
-                    <li>/delete-apparatus [POST]</li>
-                </ul>
-            </li>
-        </ul>
-
-        <h2 class="subtitle">Print Data in XLS Format from the Backend (Database side)</h2>
-        <ul>
-            <li>
-                <strong>Report Types</strong>
-                <ul>
-                    <li>i) Report of each class (fy, sy, ty)</li>
-                    <ul>
-                        <li>- Sorting based on class</li>
-                        <li>- Sorting based on a range of dates</li>
+        <div class="columns">
+            <div class="column is-3">
+                <aside class="menu">
+                    <p class="menu-label">
+                        General
+                    </p>
+                    <ul class="menu-list">
+                        <li><a href="#getting-started">Getting Started</a></li>
+                        <li><a href="#faq">FAQ</a></li>
                     </ul>
-                    <li>ii) Report of who broke what apparatus (records table)</li>
-                    <ul>
-                        <li>- Sorting based on class</li>
-                        <li>- Sorting based on a range of dates</li>
+                    <p class="menu-label">
+                        Account
+                    </p>
+                    <ul class="menu-list">
+                        <li><a href="#profile">Profile</a></li>
+                        <li><a href="#billing">Billing</a></li>
                     </ul>
-                </ul>
-            </li>
-        </ul>
-
-        <h2 class="subtitle">Functionality</h2>
-        <ul>
-            <li>Login</li>
-            <li>Add Breakage</li>
-            <li>View Breakage</li>
-            <li>Print Report</li>
-            <li>Add Apparatus</li>
-            <li>Edit Apparatus</li>
-            <li>Delete Apparatus</li>
-        </ul>
-
-        <h2 class="subtitle">Flow of the App</h2>
-        <p>Only Degree College Teachers can use this app</p>
-        <ol>
-            <li>Teacher logs in</li>
-            <li>Modules shown to the teacher</li>
-            <ul>
-                <li>a) Add Breakage</li>
-                <li>b) Edit Apparatus Data</li>
-                <li>c) View Breakage</li>
-                <li>d) Print Report</li>
-            </ul>
-            <li>Teacher can add breakage</li>
-            <li>Teacher can view breakage</li>
-            <li>Teacher can print report</li>
-            <li>Teacher can edit apparatus data</li>
-        </ol>
+                </aside>
+            </div>
+            <div class="column">
+                <div id="getting-started mt-2">
+                    <h2 class="subtitle">Getting Started</h2>
+                    <p>Welcome to our app! To get started, follow these simple steps:</p>
+                    <ol>
+                        <li>Create an account</li>
+                        <li>Verify your email address</li>
+                        <li>Set up your profile</li>
+                        <li>Start using the app!</li>
+                    </ol>
+                </div>
+                <div id="faq mt-2">
+                    <h2 class="subtitle">FAQ</h2>
+                    <p>Here are some common questions we get:</p>
+                    <ul>
+                        <li>How do I reset my password?</li>
+                        <li>How do I cancel my subscription?</li>
+                    </ul>
+                </div>
+                <div id="profile mt-2">
+                    <h2 class="subtitle">Profile</h2>
+                    <p>Here are some things you can do with your profile:</p>
+                    <ul>
+                        <li>Edit your personal information</li>
+                        <li>Change your password</li>
+                    </ul>
+                </div>
+                <div id="billing mt-2">
+                    <h2 class="subtitle">Billing</h2>
+                    <p>Here are some things you can do with your billing:</p>
+                    <ul>
+                        <li>Update your credit card information</li>
+                        <li>View your payment history</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-</section>
+</div>
 {% endblock %}

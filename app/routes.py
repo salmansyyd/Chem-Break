@@ -15,6 +15,18 @@ def index():
     return redirect(url_for('auth.login'))
 
 
+@main.route('/admin/create', methods=['GET', 'POST'])
+def create_admin():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User(username=username, password=password)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('auth.login'))
+    return render_template('create_account.html')
+
+
 @main.route('/home')
 @login_required
 def home():
