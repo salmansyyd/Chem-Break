@@ -594,3 +594,56 @@ return send_file(
     as_attachment=True
 )
 This code opens a file named "output.pdf" in binary mode and writes the PDF bytes to the file. You can customize the filename and path as necessary.
+
+
+User Table (admin login)
+        {
+            id
+            username
+            password
+        }
+
+    --------------------------------------------------------------
+    // Merge "Breakage Table" and "Student Table" while taking input from the user    
+    Breakage Table
+        {
+            breakage_id (g)
+            date (g)
+            apparatus_id (i)
+            quantity (i)
+            student_unique_id (g)
+            total_price (g)
+        }
+
+    Student Table
+        {
+            student_id (g)
+            unique_id (eg : FY29Y23 : FY = First Year, 29 = Roll No, Y = Year 2023) (g)
+            roll_no (i)
+            class(fy, sy, ty) (i)
+            section(default=Chemistry) (i)
+        }
+    --------------------------------------------------------------
+
+    Apparatus Table
+        {
+            apparatus_id (g)
+            name (i)[eg: Bunsen Burner, Beaker, Test Tube , etc.]
+            size (i)[eg: 100ml, 250ml, 500ml, 1L, etc.]
+            price (i) [eg: 100, 200, 300, etc.]
+        }
+
+    Records Table (g)
+        {
+            record_id
+            message ( message is generated from "breakage_table" output, contains apparatus and quantity )
+            student_unique_id
+            date
+        }
+
+    Bank Table (g)
+        {
+            id
+            student_unique_id
+            amount
+        }

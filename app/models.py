@@ -111,6 +111,8 @@ class Apparatus(db.Model):
     name = db.Column(db.String(100), nullable=False)
     size = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Integer, nullable=False)
+    apparatus = db.relationship(
+        'Breakage', backref='breakage', lazy=True, cascade='all, delete-orphan')
 
     def __repr__(self) -> str:
         return f"Apparatus('{self.name}', '{self.size}', '{self.price}')"

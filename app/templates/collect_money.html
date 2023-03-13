@@ -1,6 +1,13 @@
 {% extends 'nav_base.html' %}
 
 {% block head %}
+<style>
+    @media print {
+        .no-print {
+            display: none;
+        }
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -13,6 +20,15 @@
             <h3 class="subtitle is-4 has-text-centered">{{ class_name }}</h3>
         </div>
     </div>
+</div>
+<div class="has-text-centered no-print mt-4">
+    <h2 class="has-text-danger">Click to Print</h2>
+    <a class="button is-primary is-medium is-rounded is-fixed-bottom-right" href="#"
+        onclick="window.print(); return false;">
+        <span class="icon">
+            <i class="fas fa-print"></i>
+        </span>
+    </a>
 </div>
 <div class="container">
     <table class="table is-fullwidth is-bordered is-striped mt-5">

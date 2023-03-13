@@ -21,13 +21,18 @@
             .navbar-brand .nav-item{
                 height: 12rem;
             }
+            @media print {
+                .no-print {
+                    display: none;
+                }
+            }
         </style>
     {% block head %}
     {% endblock %}
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar no-print" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="{{ url_for('main.home') }}">
                 <img src="{{ url_for('static', filename='logo-home.png')}}">
