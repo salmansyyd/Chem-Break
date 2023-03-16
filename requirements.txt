@@ -27,3 +27,5 @@ weasyprint==58.1 ; python_version >= '3.7'
 webencodings==0.5.1
 werkzeug==2.2.3 ; python_version >= '3.7'
 zopfli==0.2.2
+gunicorn==20.1.0
+
