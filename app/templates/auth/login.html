@@ -7,7 +7,10 @@
         <div class="container">
             <div class="columns is-centered">
                 <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-                    <h1 class="title">Login</h1>
+                    <div class="container is-flex justify-content-center mb-3">
+                        <img src="{{ url_for('static',filename='logo-home.png') }}" alt="ChemBreak" class="mx-auto">
+                    </div>
+                    <h1 class="title has-text-centered">Login</h1>
                     <form action="" class="box" method="post">
                         {% for message in get_flashed_messages() %}
                         <div class="notification is-danger">
@@ -38,8 +41,8 @@
                                 Remember me
                             </label>
                         </div>
-                        <div class="field">
-                            <button class="button is-success" type="submit">
+                        <div class="field has-text-centered">
+                            <button class="button is-success " type="submit">
                                 Login
                             </button>
                         </div>
