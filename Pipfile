@@ -12,6 +12,7 @@ flask-weasyprint = "*"
 pyzt = "*"
 flask-migrate = "*"
 pytz = "*"
+gunicorn = "==20.1.0"
 
 [dev-packages]
 autopep8 = "*"
