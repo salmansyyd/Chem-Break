@@ -52,11 +52,12 @@ class Breakage(db.Model):
     def __repr__(self) -> str:
         return f"Breakage('{self.date}', '{self.item_id}', '{self.quantity}', '{self.student_unique_id}', '{self.total_ammount}')"
 
-    def __init__(self, item_id, quantity, student_unique_id, total_ammount):
+    def __init__(self, item_id, quantity, student_unique_id, total_ammount, date):
         self.item_id = item_id
         self.quantity = quantity
         self.student_unique_id = student_unique_id
         self.total_ammount = total_ammount
+        self.date = date
 
     def get_dd_mm_yyyy(self):
         utc_datetime = datetime.datetime.strptime(

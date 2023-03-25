@@ -5,6 +5,7 @@ from app.models import Apparatus, Breakage, Bank, Student, Record, User
 from app.view_classes import ViewRecord, CollectMoney
 from app import db
 import datetime
+import pytz
 from sqlalchemy import and_
 
 main = Blueprint('main', __name__)
@@ -60,7 +61,15 @@ def post_breakage():
         roll_no = request.form['roll_no']
         s_class = request.form['class']
         section = request.form['section']
+        date_ = request.form['date']
         total_ammount = int(quantity) * int(Apparatus.query.get(item).price)
+
+        print(date_)
+        # convert date to datetime
+        date_obj = datetime.datetime.strptime(
+            date_, "%Y-%m-%d").astimezone(pytz.utc)
+        print(date_obj)
+        print(datetime.datetime.utcnow())
 
         # check if student exists with roll_no and class
         student = Student.query.filter_by(roll_no=roll_no,
@@ -71,7 +80,7 @@ def post_breakage():
             student = create_student(roll_no, s_class, section)
 
         breakage = Breakage(item_id=item,
-                            quantity=quantity, student_unique_id=student.unique_id, total_ammount=total_ammount)
+                            quantity=quantity, student_unique_id=student.unique_id, total_ammount=total_ammount, date=date_obj)
 
         record_message = student.unique_id + " " + str(breakage.quantity) + " " + Apparatus.query.get(
             breakage.item_id).name + " " + Apparatus.query.get(breakage.item_id).size

@@ -9,6 +9,9 @@ flask-sqlalchemy = "*"
 flask-login = "*"
 pymysql = "*"
 flask-weasyprint = "*"
+pyzt = "*"
+flask-migrate = "*"
+pytz = "*"
 
 [dev-packages]
 autopep8 = "*"
