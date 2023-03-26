@@ -13,6 +13,7 @@ pyzt = "*"
 flask-migrate = "*"
 pytz = "*"
 gunicorn = "==20.1.0"
+python-dotenv = "*"
 
 [dev-packages]
 autopep8 = "*"
