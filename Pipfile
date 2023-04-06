@@ -13,6 +13,8 @@ pyzt = "*"
 flask-migrate = "*"
 pytz = "*"
 gunicorn = "==20.1.0"
+python-dotenv = "*"
+pywebview = "*"
 
 [dev-packages]
 autopep8 = "*"

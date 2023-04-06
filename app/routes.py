@@ -320,10 +320,12 @@ def getMoney(class_name):
 
     class_students = Student.query.filter_by(class_=class_name.lower()).all()
     class_records = []
+    total_amount_to_collect = 0
 
     for student in class_students:
         bank = Bank.query.filter_by(
             unique_student_id=student.unique_id).first().amount
+        total_amount_to_collect += bank
         collect_money = CollectMoney(
             rollno=student.roll_no,
             total_cash=bank,
@@ -331,7 +333,7 @@ def getMoney(class_name):
         class_records.append(collect_money)
 
     sorted_records = sorted(class_records, key=lambda x: x.rollno)
-    return render_template('collect_money.html', collect_money_list=sorted_records, class_name=class_name.upper())
+    return render_template('collect_money.html', collect_money_list=sorted_records, class_name=class_name.upper(), total_amount_to_collect=total_amount_to_collect)
 
 
 @main.route("/home/reset_and_bakup")

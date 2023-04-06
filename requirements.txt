@@ -26,6 +26,7 @@ pydyf==0.5.0 ; python_version >= '3.7'
 pyfiglet==0.8.post1
 pymysql==1.0.2
 pyphen==0.14.0 ; python_version >= '3.7'
+python-dotenv==1.0.0
 pytz==2023.2
 pyzt==1.0.1
 setuptools==67.6.0 ; python_version >= '3.7'
