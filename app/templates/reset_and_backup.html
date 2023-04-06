@@ -1,6 +1,27 @@
 {% extends 'nav_base.html' %}
 {% block head %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>Reset and Backup</title>
+    <script>
+        setTimeout(() => {
+                const notifications = document.querySelectorAll('.notification');
+                notifications.forEach(notification => {
+                    notification.style.display = 'none';
+                });
+            }, 3000);
+            
+        function confirmDeletion() {
+                event.preventDefault();
+                if (confirm("Are you sure you want to delete this data?")) {
+                    // If the user confirms the deletion, submit the form
+                    event.target.form.submit();
+                } else {
+                    // If the user cancels the deletion, do nothing
+                    return false;
+                }
+            }
+
+    </script>
 {% endblock %}
 {% block content %}
 <div class="container mt-3">
@@ -16,38 +37,38 @@
         <!-- Empty Breakage Table Form -->
         <form action="{{ url_for('main.empty_breakage_table') }}" method="POST" class="column is-half">
             <h2 class="subtitle">Empty Breakage Table</h2>
-            <button class="button is-danger">Empty Breakage Table</button>
+            <button class="button is-danger" onclick="confirmDeletion()">Empty Breakage Table</button>
         </form>
 
         <!-- Empty Student Table Form -->
         <form action="{{ url_for('main.empty_student_table') }}" method="POST" class="column is-half">
             <h2 class="subtitle">Empty Student Table</h2>
-            <button class="button is-danger">Empty Student Table</button>
+            <button class="button is-danger" onclick="confirmDeletion()">Empty Student Table</button>
         </form>
 
         <!-- Empty Apparatus Table Form -->
         <form action="{{ url_for('main.empty_apparatus_table') }}" method="POST" class="column is-half">
             <h2 class="subtitle">Empty Apparatus Table</h2>
-            <button class="button is-danger">Empty Apparatus Table</button>
+            <button class="button is-danger" onclick="confirmDeletion()">Empty Apparatus Table</button>
         </form>
 
         <!-- Empty Records Table Form -->
         <form action="{{ url_for('main.empty_records_table') }}" method="POST" class="column is-half">
             <h2 class="subtitle">Empty Records Table</h2>
-            <button class="button is-danger">Empty Records Table</button>
+            <button class="button is-danger" onclick="confirmDeletion()">Empty Records Table</button>
         </form>
 
         <!-- Empty Bank Table Form -->
         <form action="{{ url_for('main.empty_bank_table') }}" method="POST" class="column is-half">
             <h2 class="subtitle">Empty Bank Table</h2>
-            <button class="button is-danger">Empty Bank Table</button>
+            <button class="button is-danger" onclick="confirmDeletion()">Empty Bank Table</button>
         </form>
 
         <!-- Empty Bank Table Form -->
         <form action="{{ url_for('main.complete_reset') }}" method="POST" class="column is-half"
         >
             <h2 class="subtitle has-text-danger">Complete Reset</h2>
-            <button class="button is-danger">Empty Student/Breakage Data</button>
+            <button class="button is-danger" onclick="confirmDeletion()">Empty Student/Breakage Data</button>
         </form>
 
         <!-- Download Backup Form -->

@@ -26,7 +26,7 @@
     <a class="button is-primary is-medium is-rounded is-fixed-bottom-right" href="#"
         onclick="window.print(); return false;">
         <span class="icon">
-            <i class="fas fa-print"></i>
+            <i class="fas fa-print">Print</i>
         </span>
     </a>
 </div>
@@ -45,6 +45,10 @@
                 <td>{{ item.total_cash }} ₹</td>
             </tr>
             {% endfor %}
+            <tr>
+                <td><b>Total</b></td>
+                <td><b>{{ total_amount_to_collect }} ₹ </b></td>
+            </tr>
         </tbody>
     </table>
 </div>
