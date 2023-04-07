@@ -3,7 +3,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
-    # DEBUG = True
+    DEBUG = True
     SECRET = "secret-key"
     SECRET_KEY = "some secrete"
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
@@ -14,3 +14,8 @@ class Config(object):
 class MySQLConfig(Config):
 
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:mysql@localhost:3306/chembreakage'
+
+
+class Production(Config):
+    DEBUG = False
+    TESTING = False
