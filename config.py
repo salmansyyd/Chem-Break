@@ -12,10 +12,14 @@ class Config(object):
 
 
 class MySQLConfig(Config):
-
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:mysql@localhost:3306/chembreakage'
 
 
 class Production(Config):
     DEBUG = False
     TESTING = False
+
+
+class Testing(Config):
+    SQLALCHEMY_DATABASE_URI = "sqlite:///test.db"
+    TESTING = True
